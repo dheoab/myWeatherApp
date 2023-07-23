@@ -1,0 +1,138 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'montseratt', sans-serif;
+}
+
+.App {
+  background-image: url('./assets/background-cold.jpg');
+  background-size: cover;
+  background-position: bottom;
+  transition: 0.4 ease-out;
+}
+
+.App.warm {
+  background-image: url('./assets/background-warm.jpg');
+}
+
+main {
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom, rgba(0,0,0, 0.2),rgba(0,0,0, 0.75));
+  padding: 25px 25%;
+}
+
+.search-box {
+  width: 100% ;
+  margin: 0 0 75px;
+}
+
+.search-box .search-stack{
+  border:none;
+  
+  position: relative;
+
+}
+
+.search-box .search-form .search-bar {
+  display: block;
+  width: 100%;
+  padding: 15px;
+
+  appearance: none;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  outline: none;
+  
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.3px);
+  -webkit-backdrop-filter: blur(5.3px);
+  
+
+  color: #fffdfd;
+  font-size: 16px;
+  transition: 0.4s ease;
+
+}
+
+.search-box .search-form .search-button {
+  font-size: 28px;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  right: 5%;
+  top : 25%;
+  color: white;
+}
+
+.search-box .search-form .search-bar::-webkit-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  /* color: rgb(72, 70, 70); */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+.search-box .search-form .search-bar:focus{
+  background-color: rgba(255, 255, 255, 0.3);
+
+}
+
+/* .search-box .search-button{
+
+} */
+
+.weather-box {
+  text-align: center;
+}
+
+.weather-box .temp{
+  position: relative;
+  display: inline-block;
+  margin:  auto;
+  /* background-color: rgba(255, 255, 255, 0.2); */
+  
+
+  /* padding: 15px 25px; */
+
+
+  color: #FFF;
+  font-size: 102px;
+  font-weight: 900;
+
+  /* text-shadow: 3px 6px rgba(50, 50, 70, 0.5); */
+  text-align: center;
+  /* box-shadow: 3px 6px rgba(0,0,0, 0.2); */
+
+}
+
+.weather-box .weather {
+  color: #FFF;
+  font-size: 48px;
+  font-weight: 700;
+  /* text-shadow: 3px 3px rgba(50, 50, 70, 0.5); */
+}
+
+.location-box {
+  margin: 60px 0px;
+}
+
+.location-box .location {
+  color: #FFF;
+  font-size:  32px;
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
+}
+
+.location-box .date {
+  color: #FFF;
+  font-size: 20px;
+  font-weight: 300;
+  /* font-style: italic; */
+  text-align: center;
+  text-shadow: 2px 2px rgba(50, 50, 70, 0.5);
+}
+
