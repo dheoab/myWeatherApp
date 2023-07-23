@@ -110,9 +110,15 @@ main {
 
 .weather-box .weather {
   color: #FFF;
-  font-size: 48px;
+  font-size: 32px;
   font-weight: 700;
+  margin-top: -25px;
   /* text-shadow: 3px 3px rgba(50, 50, 70, 0.5); */
+}
+
+.humidity, .wind {
+  color: #FFF;
+  font-size: 16px;
 }
 
 .location-box {

@@ -1,25 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import axios from "axios";
 const api = {
   key: "cbec3fdb90ba886899cd76050824d9fc",
   base: "https://api.openweathermap.org/data/2.5/",
+  img: "https://openweathermap.org/img/wn/",
 };
 
 function App() {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
 
+  const fetchData = async (city) => {
+    try {
+      console.log(query, "ini Query");
+      const { data } = await axios.get(
+        `${api.base}weather?q=${city}&units=metric&APPID=${api.key}`
+      );
+      console.log(data);
+      setWeather(data);
+    } catch (error) {
+      console.log(error, "ini Error");
+    }
+  };
+
+  useEffect(() => {
+    fetchData("Jakarta");
+  }, []);
+
   const search = async (e) => {
     e.preventDefault();
-    console.log(query);
-    const response = await fetch(
-      `${api.base}weather?q=${query}&units=metric&APPID=${api.key}`
-    );
-    console.log(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`);
-    const responseJSON = await response.json();
-    console.log(responseJSON);
-    setWeather(responseJSON.weather.main);
-    setQuery("");
+
+    if (!query) {
+      return;
+    }
+
+    fetchData(query);
   };
 
   const dateBuilder = (d) => {
@@ -50,7 +66,15 @@ function App() {
 
   return (
     <>
-      <div className="App">
+      <div
+        className={
+          Object.keys(weather).length != 0
+            ? weather.main.temp > 24
+              ? "App warm"
+              : "App"
+            : "App"
+        }
+      >
         <main>
           <div className="search-box">
             <form action="" className="search-form" onSubmit={search}>
@@ -68,14 +92,38 @@ function App() {
               </div>
             </form>
           </div>
-          <div className="weather-box">
-            <div className="temp">15°C</div>
-            <div className="weather">Sunny</div>
-          </div>
-          <div className="location-box">
-            <div className="location">Jakarta City, Indonesia</div>
-            <div className="date">{dateBuilder(new Date())}</div>
-          </div>
+          {Object.keys(weather).length != 0 ? (
+            <div>
+              <div className="weather-box">
+                <div className="temp">{Math.round(weather.main.temp)}°C</div>
+                <div>
+                  <img src={`${api.img}${weather.weather[0].icon}@2x.png`} />
+                </div>
+                <div className="weather">{weather.weather[0].main}</div>
+                <div style={{ display: "inline-block" }}>
+                  <div className="humidity" style={{ display: "inline-block" }}>
+                    <ion-icon name="water-sharp"></ion-icon>{" "}
+                    {weather.main.humidity}%
+                  </div>
+                  <div
+                    className="wind"
+                    style={{ display: "inline-block", marginLeft: "50px" }}
+                  >
+                    <ion-icon name="leaf-sharp"></ion-icon>{" "}
+                    {Math.round(weather.wind.speed)} m/s
+                  </div>
+                </div>
+              </div>
+              <div className="location-box">
+                <div className="location">
+                  {weather.name}, {weather.sys.country}
+                </div>
+                <div className="date">{dateBuilder(new Date())}</div>
+              </div>
+            </div>
+          ) : (
+            "FETCHING"
+          )}
         </main>
       </div>
     </>
